@@ -26,7 +26,7 @@ public class CrimesController {
     private URL location;
 
     @FXML // fx:id="boxAnno"
-    private ComboBox<?> boxAnno; // Value injected by FXMLLoader
+    private ComboBox<String> boxAnno; // Value injected by FXMLLoader
 
     @FXML // fx:id="boxMese"
     private ComboBox<?> boxMese; // Value injected by FXMLLoader
@@ -48,7 +48,17 @@ public class CrimesController {
 
     @FXML
     void doCreaReteCittadina(ActionEvent event) {
-    	
+    	String input = boxAnno.getValue();
+    	try {
+    		Integer anno = Integer.parseInt(input);
+    		model.creaGrafo(anno);
+    		txtResult.appendText("Grafo creato\n");
+    		txtResult.appendText("vertici: "+model.nVertici()+"\n");
+    		txtResult.appendText("archi: "+model.nArchi()+"\n\n");
+    		txtResult.appendText(model.getVicini());
+    	} catch (NumberFormatException e) {
+    		txtResult.appendText("Inserire un numero valido.\n");
+    	}
     }
 
     @FXML
@@ -70,5 +80,6 @@ public class CrimesController {
     
     public void setModel(Model model) {
     	this.model = model;
+    	boxAnno.getItems().addAll(model.getAnni());
     }
 }
