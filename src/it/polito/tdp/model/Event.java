@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 public class Event {
 	
 	private Long incident_id;
+	
 	private Integer offense_code;
 	private Integer offense_code_extension;
 	private String offense_type_id;
